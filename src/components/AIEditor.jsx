@@ -33,7 +33,7 @@ export function AIEditor() {
           }],
           temperature: 0.7,
           max_tokens: 1000,
-          response_format: { type: "text" }
+          stream: true
         })
       });
 
@@ -41,22 +41,58 @@ export function AIEditor() {
         throw new Error("AI request failed");
       }
 
-      const data = await response.json();
+      if (!response.body) {
+        throw new Error("ReadableStream not supported");
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let aiResponse = "";
       
-      // Extract just the content from the response
-      const aiResponse = data.choices[0].message.content;
+      // Create initial block for streaming
+      const initialBlock = {
+        type: "paragraph",
+        content: "",
+      };
       
-      // Masukkan hasil ke editor
-      editor.insertBlocks(
-        [
-          {
-            type: "paragraph",
-            content: aiResponse,
-          },
-        ],
+      const newBlock = editor.insertBlocks(
+        [initialBlock],
         editor.getTextCursorPosition().block,
         "after"
-      );
+      )[0];
+
+      while (true) {
+        const { done, value } = await reader.read();
+        
+        if (done) {
+          break;
+        }
+
+        // Decode the stream chunk
+        const chunk = decoder.decode(value);
+        const lines = chunk.split('\n');
+        
+        for (const line of lines) {
+          if (line.startsWith('data: ')) {
+            const data = line.slice(6);
+            if (data === '[DONE]') continue;
+            
+            try {
+              const parsed = JSON.parse(data);
+              const content = parsed.choices[0]?.delta?.content || '';
+              if (content) {
+                aiResponse += content;
+                // Update the block with new content
+                editor.updateBlock(newBlock, {
+                  content: aiResponse
+                });
+              }
+            } catch (e) {
+              console.error('Error parsing streaming response:', e);
+            }
+          }
+        }
+      }
     } catch (error) {
       console.error("AI processing error:", error);
       alert("Error processing with AI: " + error.message);
