@@ -1,12 +1,64 @@
-# React + Vite
+# Building an AI-Powered Text Editor with BlockNote and Groq
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+In today's fast-paced digital world, content creation and editing have become essential skills. This project introduces an innovative text editor that combines the power of BlockNote's rich text editing capabilities with Groq's advanced AI processing.
 
-Currently, two official plugins are available:
+## Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Smart Text Enhancement**
+   - Improve text clarity and professionalism
+   - Maintain original meaning while enhancing readability
+   - Get instant AI-powered suggestions
 
-## Expanding the ESLint configuration
+2. **Text Length Control**
+   - Shorten text while preserving key information
+   - Expand content with relevant details and examples
+   - Maintain consistent style and tone
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+3. **User-Friendly Interface**
+   - Clean, modern design
+   - Intuitive controls
+   - Real-time processing
+
+## Technical Implementation
+
+The editor is built using:
+
+- React for the frontend framework
+- BlockNote for rich text editing
+- Groq API for AI processing
+- Mantine for UI components
+
+
+## How to Use
+
+1. Enter your Groq API key
+2. Write or paste your text
+3. Select the text you want to modify
+4. Choose from three AI-powered options:
+   - Improve Text
+   - Shorten Text
+   - Lengthen Text
+
+## Benefits
+
+- Save time on content editing
+- Improve writing quality
+- Maintain consistent tone
+- Get instant feedback
+- Professional results
+
+## Future Enhancements
+
+- Multiple language support
+- Custom AI prompts
+- Style templates
+- Export options
+- Collaboration features
+
+This project demonstrates how AI can enhance the writing process while maintaining human creativity and control. It's a perfect tool for writers, content creators, and anyone looking to improve their text quickly and effectively.
+
+You can now use the AI features to:
+
+1. Improve the text by selecting it and clicking "Improve Text"
+2. Make it shorter by selecting it and clicking "Shorten Text"
+3. Add more details by selecting it and clicking "Lengthen Text"
